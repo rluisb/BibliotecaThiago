@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+
+/* Componentes tinham borda */
+.ui-widget-content {
+    border: 0px white !important;
+    color: #656565;
+}
+
+.ui-layout-north {
+	z-index: 20 !important;
+	overflow: visible !important;
+}
+
+.ui-layout-north .ui-layout-unit-content {
+	overflow: visible !important;
+}

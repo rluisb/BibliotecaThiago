@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:dialog xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" id="modalFuncionarioId"
+	widgetVar="dialogFuncionario" appendToBody="true" modal="false"
+	header="Escolher Funcionario" closable="true">
+
+
+	<div style="height: 200px; width: 480px; overflow: auto;">
+		<p:dataTable selection="single" id="tabelaModalDeFuncionarios"
+			var="funcionario"
+			value="#{funcionarioManagedBean.listaDeFuncionariosCadastrados}"
+			emptyMessage="Não existem funcionarios cadastrados"
+			style="padding-top:20px;">
+
+			<p:column headerText="cpf">
+				<h:outputText value="#{funcionario.cpf}" />
+			</p:column>
+
+			<p:column headerText="nome">
+				<h:outputText value="#{funcionario.nome}" />
+			</p:column>
+
+			<p:column headerText="telefone">
+				<h:outputText value="#{funcionario.telefone}" />
+			</p:column>
+
+			<p:column style="width:32px;text-align: center">
+				<p:commandButton update=":emprestimoForm" process="@this"
+					action="#{emprestimoManagedBean.emprestimo.setFuncionario(funcionario)}"
+					onclick="#{funcionarioManagedBean.limpar()}"
+					oncomplete="PF('dialogFuncionario').hide();"
+					icon="fa fa-fw fa-arrow-circle-down" title="View">
+
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</div>
+
+</p:dialog>

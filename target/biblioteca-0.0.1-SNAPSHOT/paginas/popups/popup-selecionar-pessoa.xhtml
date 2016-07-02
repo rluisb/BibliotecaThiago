@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:dialog xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" id="modalPessoaId"
+	widgetVar="dialogPessoa" appendToBody="true" modal="false"
+	header="Escolher Pessoa" closable="true">
+
+	<!-- 
+    <h:form id="formDialog" prependId="false">
+    	 <h:outputText value="This is a Modal Dialog." />
+    </h:form>
+     -->
+	<div style="height: 200px; width: 480px; overflow: auto;">
+		<p:dataTable selection="single" id="tabelaModalDePessoas" var="pessoa"
+			value="#{pessoaManagedBean.listaDePessoasCadastradas}"
+			emptyMessage="Não existem pessoas cadastrados"
+			style="padding-top:20px;">
+
+			<p:column headerText="Cpf">
+				<h:outputText value="#{pessoa.cpf}" />
+			</p:column>
+
+			<p:column headerText="Nome">
+				<h:outputText value="#{pessoa.nome}" />
+			</p:column>
+
+			<p:column style="width:32px;text-align: center">
+				<p:commandButton update=":emprestimoForm" process="@this"
+					action="#{emprestimoManagedBean.emprestimo.setPessoa(pessoa)}"
+					onclick="#{pessoaManagedBean.limpar()}"
+					oncomplete="PF('dialogPessoa').hide();"
+					icon="fa fa-fw fa-arrow-circle-down" title="View">
+					
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+	</div>
+
+</p:dialog>

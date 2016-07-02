@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<p:dialog xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core" id="modalLivroId"
+	widgetVar="dialogLivro" modal="false" appendToBody="true"
+	header="Escolher Livro" closable="true">
+
+
+	<div style="height: 200px; width: 700px; overflow: auto;">
+		<p:dataTable id="tabelaModalDeLivros" var="livro"
+			value="#{livroManagedBean.listaDeLivrosCadastrados}"
+			selection="#{emprestimoManagedBean.emprestimo.livros}"
+			rowKey="#{livro.idLivro}"
+			emptyMessage="Não existem livros cadastrados"
+			style="margin-bottom:0; padding-top:20px">
+
+			<p:column selectionMode="multiple"
+				style="width:16px;text-align:center" />
+			<p:column headerText="Id">
+				<h:outputText value="#{livro.idLivro}" />
+			</p:column>
+			<p:column headerText="Nome">
+				<h:outputText value="#{livro.nome}" />
+			</p:column>
+			<p:column headerText="Autor">
+				<h:outputText value="#{livro.autor}" />
+			</p:column>
+			<p:column headerText="Unidades Disponiveis">
+				<h:outputText value="#{livro.estoque}" />
+			</p:column>
+			<f:facet name="footer">
+				<p:commandButton process="tabelaModalDeLivros"
+					update="@form emprestimoForm tabelaDeEmprestimos"
+					value="Selecionar" icon="fa fa-fw fa-archive"
+					oncomplete="PF('dialogLivro').hide()" />
+			</f:facet>
+		</p:dataTable>
+	</div>
+
+</p:dialog>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+	<title>Biblioteca</title>
+</h:head>
+
+<h:body>
+	<h:outputStylesheet library="styles" name="primefacesOverride.css" />
+
+	<p:layout style="min-width:400px; min-height:500px;" fullPage="true">
+
+		<p:layoutUnit style="border:0px solid white; text-align: center;"
+			position="north" resizable="true" size="130" minSize="130"
+			maxSize="130">
+			
+
+
+
+			<p:graphicImage library="imagens" name="stefanini.png"
+				style="padding-top: 15px !important" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center" style="border: 0px solid white;">
+			<div id="conteudoCentro" style="height: 100%">
+				<ui:insert name="conteudo" />
+			</div>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" resizable="true" size="40" minSize="40"
+			maxSize="40" style="border: 0px solid white;">
+			<p:outputLabel style="font-size: 12px; float: right;"
+				value="Copyright 2016. Todos os Direitos reservados PvMeira" />
+		</p:layoutUnit>
+		<h:form>
+			<p:growl id="messages" showDetail="true" sticky="true" />
+
+			<p:idleMonitor timeout="999900">
+				<p:ajax event="idle" listener="#{idleMonitorView.onIdle}"
+					update="messages" />
+				<p:ajax event="active" listener="#{idleMonitorView.onActive}"
+					update="messages" />
+			</p:idleMonitor>
+		</h:form>
+
+	</p:layout>
+
+</h:body>
+</html>
+

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/WEB-INF/modelos/padrao.xhtml">
+	<ui:define name="conteudo">
+
+		<p:layout>
+			<p:layoutUnit position="north" style="text-align: center;">
+				<p:outputLabel style="font-size: 20px;" value="Emprestimo" />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+
+				<h:form id="emprestimoForm">
+					<p:growl id="growl" showDetail="true" sticky="false" life="3000" />
+					<p:panelGrid columns="2" style="text-align: center;">
+
+						<p:outputLabel for="btnModalPessoa" value="Cliente:" />
+						<p:commandButton value="Buscar" id="btnModalPessoa"
+							oncomplete="PF('dialogPessoa').show();" />
+						<p:outputLabel for="btnModalPessoa" id="lblNomePessoa"
+							value="#{emprestimoManagedBean.emprestimo.pessoa.nome}" />
+						<ui:include src="popups/popup-selecionar-pessoa.xhtml" />
+
+
+						<p:outputLabel for="btnModalLivro" value="Livros:" />
+						<p:commandButton value="Buscar" id="btnModalLivro"
+							oncomplete="PF('dialogLivro').show();" />
+						<ui:include src="popups/popup-selecionar-livro.xhtml" />
+						
+						<p:outputLabel for="btnModalFuncionario" value="Funcionario:" />
+						<p:commandButton value="Buscar" id="btnModalFuncionario"
+							oncomplete="PF('dialogFuncionario').show();" />
+						<p:outputLabel for="btnModalFuncionario" id="lblNomeFuncionario"
+							value="#{emprestimoManagedBean.emprestimo.funcionario.nome}" />
+						<ui:include src="popups/popup-selecionar-funcionario.xhtml" />
+
+					</p:panelGrid>
+
+					<p:commandButton value="Salvar" process="@form"
+						update="@form tabelaDeEmprestimos"
+						action="#{emprestimoManagedBean.salvar()}" icon="fa fa-fw fa-save" />
+					<p:commandButton value="Limpar" process="@this" update="@form"
+						action="#{emprestimoManagedBean.limpar()}"
+						icon="fa fa-fw fa-eraser" />
+				</h:form>
+
+				<div style="height: 250px; overflow: auto;">
+					<p:dataTable id="tabelaDeEmprestimos" var="emprestimo"
+						value="#{emprestimoManagedBean.listaDeEmprestimosCadastrados}"
+						emptyMessage="Não existem empréstimos cadastrados"
+						style="padding-top:20px;">
+						<p:column headerText="Status" style="text-align: center">
+							<h:outputText value="#{emprestimo.status}" />
+						</p:column>
+
+						<p:column headerText="Pessoa" style="text-align: center">
+							<h:outputText value="#{emprestimo.pessoa.nome}" />
+						</p:column>
+
+						<p:column headerText="Qtd. Livros" style="text-align: center">
+							<h:outputText value="#{emprestimo.livros.size()}" />
+						</p:column>
+
+						<p:column headerText="Retirada" style="text-align: center">
+							<h:outputText converter="localDate"
+								value="#{emprestimo.dataEntrada}" />
+						</p:column>
+
+						<p:column headerText="Entrega Efetiva" style="text-align: center">
+							<h:outputText converter="localDate"
+								value="#{emprestimo.dataSaida}" />
+						</p:column>
+
+						<p:column headerText="Dias em Atraso" style="text-align: center">
+							<h:outputText value="#{emprestimo.diasAtrasados}" />
+						</p:column>
+
+						<p:column headerText="Ação" style="text-align: center">
+							<p:commandButton icon="fa fa-fw fa-archive" title="Devolução"
+								update="tabelaDeEmprestimos emprestimoForm"
+								rendered="#{emprestimo.status eq 'ALUGADO'}"
+								action="#{emprestimoManagedBean.devolver(emprestimo)}">
+								<p:confirm header="Confirmação" message="Devolver  empréstimo?"
+									icon="ui-icon-alert" />
+							</p:commandButton>
+
+
+							<p:confirmDialog global="true" showEffect="fade"
+								hideEffect="fade">
+								<p:commandButton value="Sim" type="button"
+									styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+								<p:commandButton value="Não" type="button"
+									styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+							</p:confirmDialog>
+						</p:column>
+
+					</p:dataTable>
+				</div>
+			</p:layoutUnit>
+
+		</p:layout>
+
+	</ui:define>
+</ui:composition>
+
+</html>

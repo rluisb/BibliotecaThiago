@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/WEB-INF/modelos/padrao.xhtml">
+	<ui:define name="conteudo">
+
+		<p:layout>
+			<p:layoutUnit position="north" style="text-align: center;">
+				<p:outputLabel style="font-size: 30px;" value="Cadastro de Logins" />
+			</p:layoutUnit>
+
+			<p:layoutUnit position="center">
+
+				<h:form id="loginForm">
+					<p:growl id="growl" showDetail="true" sticky="false" life="4000" />
+
+					<p:panelGrid columns="3">
+						<p:outputLabel for="usuario" value="Usuário:" />
+						<p:inputText id="usuario" placeholder="Usuário"
+							requiredMessage="Campo obrigatório" required="true"
+							value="#{loginManagedBean.login.usuario}" />
+							<p:message for="usuario"/>
+						<p:outputLabel for="senha1" value="Senha:" />
+						<p:password id="senha1" placeholder="Senha"
+							value="#{loginManagedBean.login.senha}"
+							validatorMessage="Senhas devem ser iguais" requiredMessage="Campo obrigatório"
+							promptLabel="Use letras e números" weakLabel="Senha fraca"
+							goodLabel="Senha média" strongLabel="Senha forte" match="senha2"
+							label="Senha: " required="true" feedback="true" inline="true" />
+							
+							<p:message for="senha1"/>
+							
+						<p:outputLabel for="senha2" value="Repita a senha:" />
+						
+						<p:password id="senha2" placeholder="Repita a senha" requiredMessage="Campo obrigatório"
+							value="#{loginManagedBean.login.senha}"
+							validatorMessage="Senhas devem ser iguais"
+							weakLabel="Senha fraca" goodLabel="Senha média"
+							strongLabel="Senha forte" label="Repita a senha: "
+							required="true" feedback="true" inline="true" />
+							
+							<p:message for="senha2"/>
+							
+						<p:outputLabel for="idFuncionario" value="Funcionário: " />
+						
+						<p:selectOneMenu id="idFuncionario" converter="conversorCombobox"
+							value="#{loginManagedBean.login.funcionario}">
+
+							<f:selectItem itemLabel="Selecione um funcionário" itemValue="" />
+
+							<f:selectItems itemLabel="#{funcionario.nome}" requiredMessage="" 
+								itemValue="#{funcionario}" var="funcionario"
+								value="#{funcionarioManagedBean.listaDeFuncionariosCadastrados}" />
+						</p:selectOneMenu>
+						<p:message for="idFuncionario"/>
+
+
+
+					</p:panelGrid>
+					<p:panelGrid columns="2">
+						<p:outputLabel value="Permissões para cadastra pessoas:" />
+						<p:selectBooleanCheckbox value="#{loginManagedBean.login.pessoa}" />
+
+						<p:outputLabel value="Permissões para cadastrar livros:" />
+						<p:selectBooleanCheckbox value="#{loginManagedBean.login.livro}" />
+
+						<p:outputLabel value="Permissões para efetuar emprestimos:" />
+						<p:selectBooleanCheckbox
+							value="#{loginManagedBean.login.emprestimo}" />
+
+						<p:outputLabel value="Permissões de administrador:" />
+						<p:selectBooleanCheckbox value="#{loginManagedBean.login.admin}" />
+
+
+
+					</p:panelGrid>
+
+					<p:commandButton value="Salvar" process="@form"
+						update="@form tabelaDeLogins"
+						action="#{loginManagedBean.salvar()}" icon="fa fa-fw fa-save" />
+					<p:commandButton value="Limpar" process="@this" update="@form"
+						action="#{loginManagedBean.limpar()}" icon="fa fa-fw fa-eraser" />
+				</h:form>
+
+				<p:dataTable id="tabelaDeLogins" var="login"
+					value="#{loginManagedBean.listaDeLoginsCadastrados}"
+					emptyMessage="Não existem logins cadastrados"
+					style="padding-top:20px;">
+					<p:column headerText="Usuario">
+						<h:outputText value="#{login.usuario}" />
+					</p:column>
+					<p:column headerText="Nome do Funcionário">
+						<h:outputText value="#{login.funcionario.nome}" />
+					</p:column>
+					<p:column headerText="E-mail do Funcionário">
+						<h:outputText value="#{login.funcionario.email}" />
+					</p:column>
+					<p:column headerText="Permissões para cadastrar pessoas">
+						<p:selectBooleanCheckbox value="#{login.pessoa}" />
+					</p:column>
+					<p:column headerText="Permissões para cadastrar livros">
+						<p:selectBooleanCheckbox value="#{login.livro}" />
+					</p:column>
+					<p:column headerText="Permissões para cadastrar emprestimos">
+						<p:selectBooleanCheckbox value="#{login.emprestimo}" />
+					</p:column>
+					<p:column headerText="Permissões de administrador">
+						<p:selectBooleanCheckbox value="#{login.admin}" />
+					</p:column>
+					<p:column headerText="Ações" style="text-align: center">
+						<p:commandButton icon="fa fa-fw fa-edit" title="Editar Login"
+							update="loginForm" action="#{loginManagedBean.setLogin(login)}" />
+						<p:commandButton icon="fa fa-fw fa-trash" title="Deletar Login"
+							update="tabelaDeLogins loginForm"
+							action="#{loginManagedBean.deletar(login)}">
+							<p:confirm header="Confirmação" message="Deseja deletar o Login?"
+								icon="ui-icon-alert" />
+						</p:commandButton>
+
+						<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+							<p:commandButton value="Sim" type="button"
+								styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+							<p:commandButton value="Não" type="button"
+								styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+						</p:confirmDialog>
+					</p:column>
+				</p:dataTable>
+
+			</p:layoutUnit>
+
+		</p:layout>
+
+	</ui:define>
+</ui:composition>
+
+</html>

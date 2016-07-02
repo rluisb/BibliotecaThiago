@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+
+
+<h:head>
+	<title>Biblioteca</title>
+</h:head>
+
+<h:body>
+
+	<h:outputStylesheet library="styles" name="primefacesOverride.css" />
+
+	<p:layout style="min-width:400px; min-height:500px;" fullPage="true">
+
+		<p:layoutUnit style="border:0px solid white; text-align: center;"
+			position="north" resizable="true" size="130" minSize="130"
+			maxSize="130">
+			<h:form>
+			
+				<p:menubar>
+					<p:menuitem value="Principal" url="/paginas/principal.xhtml"
+						icon="fa fa-fw fa-home"
+						rendered="#{!sessaoManagedBean.login.logado}" />
+
+					<p:submenu label="Cadastros" icon="fa fa-fw fa-edit">
+						<p:menuitem value="Livros" icon="fa fa-fw fa-book"
+							url="/paginas/livro.xhtml"
+							rendered="#{sessaoManagedBean.login.admin || sessaoManagedBean.login.livro}" />
+						<p:separator />
+						<p:menuitem value="Pessoas" icon="fa fa-fw fa-users"
+							url="/paginas/pessoa.xhtml"
+							rendered="#{sessaoManagedBean.login.admin || sessaoManagedBean.login.pessoa}" />
+						<p:separator />
+						<p:menuitem value="Funcionários" icon="fa fa-fw fa-suitcase"
+							url="/paginas/funcionario.xhtml"
+							rendered="#{sessaoManagedBean.login.admin}" />
+						<p:separator />
+						<p:menuitem value="Logins" icon="fa fa-fw fa-key"
+							url="/paginas/loginCadastro.xhtml"
+							rendered="#{sessaoManagedBean.login.admin}" />
+					</p:submenu>
+
+					<p:submenu label="Movimentos" icon="fa fa-fw fa-refresh">
+						<p:menuitem value="Empréstimos" icon="fa fa-fw fa-folder-open-o"
+							url="/paginas/emprestimo.xhtml"
+							rendered="#{sessaoManagedBean.login.admin || sessaoManagedBean.login.emprestimo}" />
+					</p:submenu>
+
+					<f:facet name="options">
+						
+						<p:commandButton value="Sign-out"
+							action="#{sessaoManagedBean.sair()}"
+							icon="fa fa-fw fa-sign-out"
+							rendered="#{sessaoManagedBean.login.logado}" />
+					</f:facet>
+				</p:menubar>
+			</h:form>
+
+			<p:graphicImage library="imagens" name="stefanini.png"
+				style="padding-top: 15px !important" />
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center" style="border: 0px solid white;">
+			<div id="conteudoCentro" style="height: 100%">
+				<ui:insert name="conteudo" />
+			</div>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="south" resizable="true" size="40" minSize="40"
+			maxSize="40" style="border: 0px solid white;">
+			<p:outputLabel style="font-size: 12px; float: right;"
+				value="Copyright 2016. Todos os Direitos reservados a Pedro ." />
+		</p:layoutUnit>
+
+	</p:layout>
+
+</h:body>
+</html>
