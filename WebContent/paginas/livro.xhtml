@@ -47,17 +47,6 @@
 							value="#{livroManagedBean.livro.estoque}" />
 						<p:message for="estoque" />
 
-						<h:form>
-							<p:outputLabel for="fotos" value="Adicionar foto:" />
-
-							<p:fileUpload id="fotos"
-								fileUploadListener="#{livroManagedBean.uploadFoto}"
-								mode="advanced" dragDropSupport="false" multiple="true"
-								update="messages" sizeLimit="1000000" fileLimit="3"
-								allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
-							<p:growl id="messages" showDetail="true" />
-						</h:form>
-
 					</p:panelGrid>
 
 					<p:commandButton value="Salvar" process="@form"
@@ -73,13 +62,6 @@
 					style="padding-top:20px;">
 					<p:column headerText="Id">
 						<h:outputText value="#{livro.idLivro}" />
-					</p:column>
-
-					<p:column headerText="Foto">
-						<p:graphicImage value="#{livroManagedBean.getFoto(livro.foto)}"
-							cache="false" width="500" height="500" 
-							 style="padding-top: 15px !important" />
-
 					</p:column>
 
 					<p:column headerText="Nome">

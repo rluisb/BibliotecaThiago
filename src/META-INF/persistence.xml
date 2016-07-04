@@ -6,7 +6,8 @@
 	<persistence-unit name="BibliotecaUnit" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<jta-data-source>java:/jdbc/BibliotecaDS</jta-data-source>
+<!-- 		<jta-data-source>java:/jdbc/TesteDS</jta-data-source> -->
+		<jta-data-source>java:jboss/datasources/PostgreSQLDS</jta-data-source>
 		
 		<class>com.trabalho.biblioteca.entidades.Livro</class>
 		<class>com.trabalho.biblioteca.entidades.Pessoa</class>
@@ -18,7 +19,7 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 		</properties>
 	</persistence-unit>
 

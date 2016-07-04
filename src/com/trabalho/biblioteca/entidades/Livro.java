@@ -1,12 +1,10 @@
 package com.trabalho.biblioteca.entidades;
 
-import java.util.Arrays;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 @Entity
 public class Livro {
@@ -22,9 +20,6 @@ public class Livro {
 	private Integer paginas;
 	@Column(nullable = false)
 	private Integer estoque;
-	@Lob
-	@Column(nullable = true, name = "Foto")
-	private byte[] foto;
 
 	public Livro() {
 	}
@@ -69,13 +64,6 @@ public class Livro {
 		this.estoque = estoque;
 	}
 
-	public byte[] getFoto() {
-		return foto;
-	}
-
-	public void setFoto(byte[] foto) {
-		this.foto = foto;
-	}
 
 	@Override
 	public int hashCode() {
@@ -83,7 +71,6 @@ public class Livro {
 		int result = 1;
 		result = prime * result + ((autor == null) ? 0 : autor.hashCode());
 		result = prime * result + ((estoque == null) ? 0 : estoque.hashCode());
-		result = prime * result + Arrays.hashCode(foto);
 		result = prime * result + ((idLivro == null) ? 0 : idLivro.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((paginas == null) ? 0 : paginas.hashCode());
@@ -108,8 +95,6 @@ public class Livro {
 			if (other.estoque != null)
 				return false;
 		} else if (!estoque.equals(other.estoque))
-			return false;
-		if (!Arrays.equals(foto, other.foto))
 			return false;
 		if (idLivro == null) {
 			if (other.idLivro != null)

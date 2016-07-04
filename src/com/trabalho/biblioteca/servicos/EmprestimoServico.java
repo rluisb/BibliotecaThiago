@@ -24,7 +24,7 @@ public class EmprestimoServico {
 		if (emprestimo.getIdEmprestimo() == null) {
 			if (emprestimo.getStatus() == null) {
 				for (Livro confereEstoque : emprestimo.getLivros()) {
-					if (confereEstoque.getEstoque() < 2) {
+					if (confereEstoque.getEstoque() < 1) {
 						Mensageiro.notificaInformacao("Desculpe", "Sem livros em estoque!");
 						break;
 					} else {

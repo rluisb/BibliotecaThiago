@@ -6,7 +6,7 @@
 	<persistence-unit name="BibliotecaUnit" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-		<jta-data-source>java:/jdbc/BibliotecaDS</jta-data-source>
+		<jta-data-source>java:/jdbc/TesteDS</jta-data-source>
 		
 		<class>com.trabalho.biblioteca.entidades.Livro</class>
 		<class>com.trabalho.biblioteca.entidades.Pessoa</class>

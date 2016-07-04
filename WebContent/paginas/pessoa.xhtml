@@ -30,8 +30,7 @@
 						<p:outputLabel for="cpf" value="CPF:" />
 
 						<p:inputMask id="cpf" requiredMessage="Campo obrigatório"
-							value="#{funcionarioManagedBean.funcionario.cpf}">
-							<f:validator validatorId="cpfValidator" />
+							value="#{pessoaManagedBean.pessoa.cpf}">
 						</p:inputMask>
 
 						<p:message for="cpf" />
